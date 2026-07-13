@@ -1,0 +1,597 @@
+/* ════════════════════════════════════════
+       RESET GLOBAL
+       Remove margens, paddings e garante que
+       o tamanho dos elementos inclua bordas.
+    ════════════════════════════════════════ */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ════════════════════════════════════════
+     VARIÁVEIS CSS (tema de cores e tamanhos)
+     Altere aqui para mudar o visual do site
+     inteiro de uma vez só.
+  ════════════════════════════════════════ */
+    :root {
+      --brand: #0ea5e9; /* cor principal (azul neon) */
+      --brand-light: rgba(14, 165, 233, 0.14); /* fundo suave da cor principal */
+      --brand-dark: #38bdf8; /* cor principal mais clara (hover) */
+      --accent: #6366f1; /* indigo de apoio */
+      --text-primary: #ffffff; /* texto principal (branco) */
+      --text-secondary: #94a3b8; /* texto secundário (cinza azulado) */
+      --text-muted: #64748b; /* texto apagado (cinza mais escuro) */
+      --bg-page: #1a1c23; /* fundo da página */
+      --bg-card: #21242c; /* fundo dos cards/sidebar/header */
+      --border: rgba(255, 255, 255, 0.08); /* cor das bordas */
+      --radius-md: 10px; /* arredondamento médio */
+      --radius-lg: 14px; /* arredondamento grande (cards) */
+      --sidebar-w: 220px; /* largura da sidebar */
+      --header-h: 64px; /* altura do header */
+      --success: #10b981; /* verde de sucesso */
+    }
+
+    /* ════════════════════════════════════════
+     BODY
+     Fonte, cor de fundo e altura mínima.
+  ════════════════════════════════════════ */
+    body {
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      background: var(--bg-page);
+      color: var(--text-primary);
+      min-height: 100vh;
+    }
+
+    /* ════════════════════════════════════════
+     SIDEBAR (menu lateral fixo)
+     Fica grudada à esquerda e ocupa a altura
+     toda da tela. z-index alto para ficar
+     na frente do conteúdo.
+  ════════════════════════════════════════ */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: var(--sidebar-w);
+      height: 100vh;
+      background: var(--bg-card);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+    }
+
+    /* Área do logotipo no topo da sidebar */
+    .sidebar-logo {
+      height: var(--header-h); /* mesma altura do header para alinhar */
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* Ícone quadrado com a inicial do sistema */
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--brand);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 700;
+      flex-shrink: 0; /* não encolhe se o espaço apertar */
+    }
+
+    .logo-text {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    /* Área dos links de navegação — cresce para preencher o espaço */
+    .sidebar-nav {
+      flex: 1;
+      padding: 16px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    /* Rótulo de seção dentro da nav (ex: "Principal", "Conta") */
+    .nav-label {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 12px 8px 4px;
+    }
+
+    /* Link individual da sidebar */
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 500;
+      transition: background 0.15s, color 0.15s; /* animação suave no hover */
+      cursor: pointer;
+    }
+
+    /* Estado hover: fundo cinza claro */
+    .nav-link:hover {
+      background: var(--bg-page);
+      color: var(--text-primary);
+    }
+
+    /* Estado ativo: fundo azul claro e texto na cor principal */
+    .nav-link.active {
+      background: var(--brand-light);
+      color: var(--brand);
+    }
+
+    /* Ícone SVG dentro de cada link */
+    .nav-icon {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      opacity: 0.7; /* levemente transparente quando inativo */
+    }
+
+    /* Ícone fica totalmente opaco quando o link está ativo */
+    .nav-link.active .nav-icon {
+      opacity: 1;
+    }
+
+    /* Rodapé da sidebar — botão de Sair */
+    .sidebar-footer {
+      padding: 16px 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* Hover especial para o botão Sair (fica vermelho) */
+    .nav-link.danger:hover {
+      background: rgba(239, 68, 68, 0.1);
+      color: #EF4444;
+    }
+
+    /* ════════════════════════════════════════
+     HEADER (barra superior fixa)
+     Começa depois da sidebar e vai até a
+     direita. z-index menor que a sidebar.
+  ════════════════════════════════════════ */
+    .header {
+      position: fixed;
+      top: 0;
+      left: var(--sidebar-w); /* começa onde a sidebar termina */
+      right: 0;
+      height: var(--header-h);
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+      z-index: 99;
+    }
+
+    /* Título da página atual (ex: "Página inicial") */
+    .header-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    /* Grupo de elementos à direita do header */
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    /* Botão de notificações com sino */
+    .notif-btn {
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      position: relative; /* necessário para posicionar o ponto vermelho */
+      transition: background 0.15s;
+    }
+
+    .notif-btn:hover {
+      background: var(--bg-page);
+    }
+
+    /* Ponto vermelho que indica notificação nova */
+    .notif-dot {
+      width: 7px;
+      height: 7px;
+      background: #ef4444;
+      border-radius: 50%;
+      position: absolute;
+      top: 7px;
+      right: 7px;
+      border: 1.5px solid var(--bg-card); /* borda para separar do ícone */
+    }
+
+    /* Avatar circular com as iniciais do usuário */
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--brand);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: 2px solid var(--brand-light);
+    }
+
+    /* Bloco com nome e cargo do usuário */
+    .user-info {
+      text-align: right;
+    }
+
+    .user-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.2;
+    }
+
+    .user-role {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* ════════════════════════════════════════
+     CONTEÚDO PRINCIPAL
+     Empurrado para a direita (margin-left)
+     e para baixo (margin-top) para não
+     ficar atrás da sidebar e do header.
+  ════════════════════════════════════════ */
+    .main {
+      margin-left: var(--sidebar-w);
+      margin-top: var(--header-h);
+      padding: 28px;
+      min-height: calc(100vh - var(--header-h));
+    }
+
+    /* Título e subtítulo da página */
+    .page-header {
+      margin-bottom: 24px;
+    }
+
+    .page-header h1 {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .page-header p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    /* ════════════════════════════════════════
+     GRID DE CARDS DE ESTATÍSTICAS
+     auto-fit + minmax faz os cards
+     quebrarem para a linha de baixo
+     automaticamente em telas menores.
+  ════════════════════════════════════════ */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    /* Card individual de estatística */
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* Linha superior: rótulo + ícone */
+    .stat-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* Quadradinho colorido com emoji */
+    .stat-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+    }
+
+    /* Número grande de destaque */
+    .stat-value {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1;
+    }
+
+    /* Texto de apoio abaixo do número */
+    .stat-sub {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    /* Destaque em verde para valores positivos */
+    .stat-sub span {
+      color: var(--success);
+      font-weight: 600;
+    }
+
+    /* ════════════════════════════════════════
+     CARD GENÉRICO
+     Usado para qualquer bloco de conteúdo
+     (progresso, atividade recente, etc).
+  ════════════════════════════════════════ */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px 24px;
+      margin-bottom: 20px;
+    }
+
+    /* Título de uma seção dentro do card */
+    .section-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+
+    /* ════════════════════════════════════════
+     BARRAS DE PROGRESSO
+  ════════════════════════════════════════ */
+
+    /* Lista vertical de itens de progresso */
+    .progress-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Linha com nome do módulo e porcentagem */
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 7px;
+    }
+
+    .progress-name {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .progress-pct {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* Trilho cinza da barra de progresso */
+    .progress-bar {
+      height: 7px;
+      background: var(--bg-page);
+      border-radius: 99px;
+      overflow: hidden; /* esconde o fill que ultrapassa o arredondamento */
+    }
+
+    /* Preenchimento colorido — largura definida inline no HTML */
+    .progress-fill {
+      height: 100%;
+      border-radius: 99px;
+      background: var(--brand); /* cor padrão: roxo */
+      transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1); /* animação ao carregar */
+    }
+
+    /* Variações de cor para cada módulo */
+    .progress-fill.green {
+      background: var(--success);
+    } /* concluído */
+    .progress-fill.amber {
+      background: #f59e0b;
+    } /* iniciando */
+    .progress-fill.purple {
+      background: #6366F1;
+    } /* avançado */
+
+    /* ════════════════════════════════════════
+     LISTA DE ATIVIDADE RECENTE
+  ════════════════════════════════════════ */
+    .activity-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    /* Item individual com linha separadora */
+    .activity-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .activity-item:last-child {
+      border-bottom: none;
+    } /* remove borda do último */
+
+    /* Ponto colorido que identifica o tipo de ação */
+    .activity-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-top: 5px; /* alinha com a primeira linha do texto */
+      flex-shrink: 0;
+    }
+
+    .activity-text {
+      font-size: 13px;
+      color: var(--text-primary);
+      line-height: 1.5;
+    }
+
+    /* Horário da ação em cinza claro */
+    .activity-time {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* ════════════════════════════════════════
+     BADGES (etiquetas coloridas de status)
+  ════════════════════════════════════════ */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 99px; /* pílula */
+    }
+
+    .badge-success {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+    } /* verde */
+    .badge-warn {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+    } /* amarelo */
+    .badge-info {
+      background: rgba(14, 165, 233, 0.15);
+      color: #38bdf8;
+    } /* azul */
+
+    /* ════════════════════════════════════════
+     RESPONSIVO — MOBILE (telas até 768px)
+     A sidebar some para fora da tela e
+     aparece ao clicar no botão hamburguer.
+  ════════════════════════════════════════ */
+    @media (max-width: 768px) {
+      /* Sidebar escondida à esquerda por padrão */
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.25s;
+      }
+      /* Classe .open adicionada via JS para mostrar a sidebar */
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      /* Header ocupa a tela toda (sem a sidebar) */
+      .header {
+        left: 0;
+      }
+
+      /* Conteúdo também ocupa a tela toda */
+      .main {
+        margin-left: 0;
+        padding: 20px 16px;
+      }
+
+      /* Mostra o botão hamburguer */
+      .hamburger {
+        display: flex !important;
+      }
+
+      /* Overlay escuro atrás da sidebar aberta */
+      .overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.3);
+        z-index: 99;
+      }
+      /* Classe .show adicionada via JS para mostrar o overlay */
+      .overlay.show {
+        display: block;
+      }
+    }
+
+    /* Botão hamburguer (3 tracinhos) — escondido no desktop */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      margin-right: 4px;
+    }
+    /* Cada tracinho do hamburguer */
+    .hamburger span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: var(--text-secondary);
+      border-radius: 2px;
+    }
+
+    /* ════════════════════════════════════════
+     GRID DE 2 COLUNAS
+     Usado para colocar dois cards lado a
+     lado (progresso + atividade recente).
+     Em telas menores vira 1 coluna.
+  ════════════════════════════════════════ */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+    }

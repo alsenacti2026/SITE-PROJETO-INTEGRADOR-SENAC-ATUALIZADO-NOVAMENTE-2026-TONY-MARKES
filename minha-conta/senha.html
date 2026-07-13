@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alterar Senha — Minha Área</title>
+  <link rel="stylesheet" href="../css/estilominhaconta.css">
+</head>
+<body>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon">M</div>
+    <span class="logo-text">Minha Área</span>
+  </div>
+  <nav class="sidebar-nav">
+    <span class="nav-label">Principal</span>
+    <a class="nav-link" href="../index.html">
+      <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9.75L12 3l9 6.75V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.75z"/><path d="M9 21V12h6v9"/></svg>
+      Página inicial
+    </a>
+    <a class="nav-link" href="progresson1.html">
+      <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+      Progresso
+    </a>
+    <span class="nav-label">Conta</span>
+    <a class="nav-link" href="cadastro.html">
+      <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      Dados cadastrais
+    </a>
+    <a class="nav-link active" href="senha.html">
+      <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+      Alterar senha
+    </a>
+  </nav>
+  <div class="sidebar-footer">
+    <a class="nav-link danger" href="#">
+      <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 16l4-4m0 0l-4-4m4 4H7"/><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/></svg>
+      Sair
+    </a>
+  </div>
+</aside>
+
+<header class="header">
+  <div style="display:flex;align-items:center;gap:12px;">
+    <button class="hamburger" onclick="toggleSidebar()"><span></span><span></span><span></span></button>
+    <span class="header-title">Alterar senha</span>
+  </div>
+  <!-------foto e nome -->
+  <div class="header-right">
+    <div class="user-info">
+      <div class="user-name">user</div>
+    </div>
+    <div class="avatar"></div>
+  </div>
+  <!-------foto e nome -->
+</header>
+
+<main class="main">
+  <div class="page-header">
+    <h1>Alterar senha</h1>
+    <p>Escolha uma senha segura e diferente das anteriores.</p>
+  </div>
+
+  <div class="card" style="max-width:520px;">
+    <div class="form-grid">
+      <div class="form-group full">
+        <label class="form-label">Senha atual</label>
+        <input class="form-input" type="password" id="pw-atual" placeholder="Digite sua senha atual">
+      </div>
+
+      <hr class="form-divider" style="grid-column:1/-1;">
+
+      <div class="form-group full">
+        <label class="form-label">Nova senha</label>
+        <input class="form-input" type="password" id="pw-nova" placeholder="Mínimo 8 caracteres" oninput="checkPw()">
+
+        <div class="pw-strength" id="pw-strength" style="display:none;">
+          <div class="pw-strength-label" id="pw-strength-label">Força: —</div>
+          <div class="pw-strength-bar">
+            <div class="pw-bar-seg" id="seg1"></div>
+            <div class="pw-bar-seg" id="seg2"></div>
+            <div class="pw-bar-seg" id="seg3"></div>
+            <div class="pw-bar-seg" id="seg4"></div>
+          </div>
+        </div>
+
+        <div class="pw-rules">
+          <div class="pw-rule" id="rule-len"><div class="pw-rule-dot"></div>Mínimo de 8 caracteres</div>
+          <div class="pw-rule" id="rule-upper"><div class="pw-rule-dot"></div>Uma letra maiúscula</div>
+          <div class="pw-rule" id="rule-num"><div class="pw-rule-dot"></div>Um número</div>
+          <div class="pw-rule" id="rule-special"><div class="pw-rule-dot"></div>Um caractere especial (!@#$...)</div>
+        </div>
+      </div>
+
+      <div class="form-group full">
+        <label class="form-label">Confirmar nova senha</label>
+        <input class="form-input" type="password" id="pw-confirm" placeholder="Repita a nova senha" oninput="checkConfirm()">
+        <span class="form-hint" id="confirm-hint"></span>
+      </div>
+    </div>
+
+    <div class="form-footer">
+      <button class="btn btn-secondary" onclick="resetSenha()">Cancelar</button>
+      <button class="btn btn-primary" onclick="salvarSenha()">Salvar nova senha</button>
+    </div>
+  </div>
+</main>
+
+<div class="toast" id="toast"><div class="toast-dot"></div><span id="toast-msg"></span></div>
+<script src="../JS/scriptminhaconta.js"></script>
+</body>
+</html>

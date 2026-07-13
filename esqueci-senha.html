@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Esqueci minha senha — Minha Área</title>
+  <link rel="stylesheet" href="../PI/css/esqueci.css">
+ 
+</head>
+<body>
+
+<div class="auth-box">
+
+  <!-- Logo -->
+  <div class="auth-logo">
+    <div class="logo-icon">M</div>
+    <span class="logo-text">Minha Área</span>
+  </div>
+
+  <h1 class="auth-title">Esqueci minha senha</h1>
+  <p class="auth-sub">Escolha como deseja receber o link de redefinição.</p>
+
+  <!-- Abas de seleção -->
+  <div class="tabs">
+    <button class="tab active" onclick="trocarAba('email')">📧 E-mail</button>
+    <button class="tab"        onclick="trocarAba('telefone')">📱 Telefone</button>
+  </div>
+
+  <!-- Mensagem de sucesso (compartilhada entre as duas abas) -->
+  <div class="success-box" id="success-box"></div>
+
+  <!-- ── Aba: E-mail ── -->
+  <div class="tab-panel active" id="panel-email">
+    <div class="form-group">
+      <label class="form-label" for="email">E-mail cadastrado</label>
+      <input class="form-input" type="email" id="email" placeholder="seu@email.com">
+      <span class="form-hint">Enviaremos um link para redefinir sua senha.</span>
+    </div>
+    <button class="btn-full" onclick="enviar('email')">Enviar link por e-mail</button>
+  </div>
+
+  <!-- ── Aba: Telefone ── -->
+  <div class="tab-panel" id="panel-telefone">
+    <div class="form-group">
+      <label class="form-label" for="telefone">Número de telefone</label>
+      <input class="form-input" type="tel" id="telefone" placeholder="(00) 00000-0000" maxlength="15" oninput="mascaraTel(this)">
+      <span class="form-hint">Enviaremos um código SMS para seu celular.</span>
+    </div>
+    <button class="btn-full" onclick="enviar('telefone')">Enviar código por SMS</button>
+  </div>
+
+  <div class="auth-footer">
+    Lembrou a senha? <a href="login.html">Voltar para o login</a>
+  </div>
+
+</div>
+
+<script src="../PI/JS/esquecisenha.js"></script>
+
+</body>
+</html>

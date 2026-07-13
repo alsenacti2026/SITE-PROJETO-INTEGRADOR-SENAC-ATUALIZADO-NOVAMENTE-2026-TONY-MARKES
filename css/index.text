@@ -1,0 +1,126 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    
+    /* EFEITO CAMALEÃO:  no linear-gradient e no background-size */
+    background: linear-gradient(-45deg, #0f0c29, #302b63, #263534, #24243e, #1a1a2e);
+    background-size: 400% 400%;
+    animation: camaleao 15s ease infinite;
+    overflow: hidden;
+}
+
+/* ANIMAÇÃO QUE FAZ O FUNDO MUDAR DE COR SOZINHO */
+@keyframes camaleao {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.principal {
+    width: 95%;
+    max-width: 1250px;
+}
+
+/* CONTAINER DE VIDRO (O CAMALEÃO APARECE ATRAVÉS DELE) */
+.glass-container {
+    background: rgba(255, 255, 255, 0.04); 
+    backdrop-filter: blur(45px) saturate(210%);
+    -webkit-backdrop-filter: blur(45px) saturate(210%);
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 60px 40px;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+/* AJUSTE DA LOGO SEADI (TAMANHO AMPLIADO) */
+.logo-topo {
+    width: 380px; 
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.2));
+    margin-bottom: 30px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    transition: transform 0.4s ease;
+}
+
+.textos-cabecalho h1 {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+}
+
+.divisor {
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, #d946ef, #3b82f6);
+    margin: 15px auto;
+}
+
+.textos-cabecalho h2 {
+    color: #fff;
+    font-size: 42px;
+    font-weight: 300;
+    margin-bottom: 5px;
+}
+
+.textos-cabecalho p {
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 55px;
+}
+
+/* CARDS LADO A LADO */
+.grade-botoes {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: nowrap;
+}
+
+.cartao-botao {
+    flex: 1;
+    max-width: 380px;
+    border-radius: 35px;
+    overflow: hidden;
+    background: #000;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+.cartao-botao img {
+    width: 100%;
+    height: auto;
+    display: block;
+    opacity: 0.95;
+    transition: 0.6s;
+}
+
+/* EFEITOS AO PASSAR O MOUSE */
+.cartao-botao:hover {
+    transform: translateY(-18px);
+    border-color: rgba(217, 70, 239, 0.7);
+    box-shadow: 0 35px 70px rgba(217, 70, 239, 0.3);
+}
+
+.cartao-botao:hover img {
+    transform: scale(1.06);
+    opacity: 1;
+}
+
+/* AJUSTE PARA CELULAR */
+@media (max-width: 1000px) {
+    .grade-botoes { flex-wrap: wrap; }
+    .cartao-botao { max-width: 100%; width: 100%; }
+    .logo-topo { width: 80%; }
+}

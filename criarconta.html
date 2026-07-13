@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro — Minha Área</title>
+  <link rel="stylesheet" href="../PI/css/criarconta.css">
+</head>
+<body>
+
+<div class="auth-box">
+
+  <div class="auth-logo">
+    <div class="logo-icon">M</div>
+    <span class="logo-text">Minha Área</span>
+  </div>
+
+  <h1 class="auth-title">Criar conta</h1>
+  <p class="auth-sub">Preencha os dados abaixo para se cadastrar.</p>
+
+  <div class="form-group">
+    <label class="form-label" for="nome">Nome</label>
+    <input class="form-input" type="text" id="nome" placeholder="Seu nome">
+  </div>
+
+  <div class="form-group">
+    <label class="form-label" for="sobrenome">Sobrenome</label>
+    <input class="form-input" type="text" id="sobrenome" placeholder="Seu sobrenome">
+  </div>
+
+  <div class="form-group">
+    <label class="form-label" for="email">E-mail</label>
+    <input class="form-input" type="email" id="email" placeholder="seu@email.com">
+  </div>
+
+  <div class="form-group">
+    <label class="form-label" for="pw-nova">Senha</label>
+    <input class="form-input" type="password" id="pw-nova" placeholder="Mínimo 8 caracteres" oninput="checkPw()">
+
+    <div class="pw-strength" id="pw-strength" style="display:none;">
+      <div class="pw-strength-label" id="pw-strength-label">Força: —</div>
+      <div class="pw-strength-bar">
+        <div class="pw-bar-seg" id="seg1"></div>
+        <div class="pw-bar-seg" id="seg2"></div>
+        <div class="pw-bar-seg" id="seg3"></div>
+        <div class="pw-bar-seg" id="seg4"></div>
+      </div>
+    </div>
+
+    <div class="pw-rules">
+      <div class="pw-rule" id="rule-len"><div class="pw-rule-dot"></div>Mínimo de 8 caracteres</div>
+      <div class="pw-rule" id="rule-upper"><div class="pw-rule-dot"></div>Uma letra maiúscula</div>
+      <div class="pw-rule" id="rule-num"><div class="pw-rule-dot"></div>Um número</div>
+      <div class="pw-rule" id="rule-special"><div class="pw-rule-dot"></div>Um caractere especial (!@#$...)</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label" for="pw-confirm">Confirmar senha</label>
+    <input class="form-input" type="password" id="pw-confirm" placeholder="Repita a senha" oninput="checkConfirm()">
+    <span class="form-hint" id="confirm-hint"></span>
+  </div>
+
+  <div class="checkbox-group">
+    <input type="checkbox" id="termos">
+    <label for="termos">
+      Li e aceito os <a href="termos.html" target="_blank">Termos de uso</a> e a <a href="privacidade.html" target="_blank">Política de privacidade</a>.
+    </label>
+  </div>
+
+  <button class="btn-full" onclick="cadastrar()">Criar minha conta</button>
+
+  <div class="auth-footer">
+    Já tem uma conta? <a href="login.html">Entrar</a>
+  </div>
+
+</div>
+
+<script src="../PI/JS/criarconta.js"></script>
+
+</body>
+</html>

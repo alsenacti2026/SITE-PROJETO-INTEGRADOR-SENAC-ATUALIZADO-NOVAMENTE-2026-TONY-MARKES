@@ -1,0 +1,100 @@
+:root {
+  /* Paleta unificada com styleIndex.css (dark azul/indigo neon) */
+  --brand:       #0EA5E9;
+  --brand-light: rgba(14, 165, 233, 0.14);
+  --brand-dark:  #38BDF8;
+  --accent:      #6366F1;
+  --text-primary:   #FFFFFF;
+  --text-secondary: #94A3B8;
+  --text-muted:     #64748B;
+  --bg-page:  #1A1C23;
+  --bg-card:  #21242C;
+  --border:   rgba(255, 255, 255, 0.08);
+  --radius-md: 10px;
+  --radius-lg: 14px;
+}
+
+body { background: var(--bg-page); color: var(--text-primary); padding: 40px 20px; }
+
+    .doc-wrap {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    /* Cabeçalho da página */
+    .doc-header {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px 40px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .doc-header-left h1 { font-size: 22px; font-weight: 700; color: var(--text-primary); }
+    .doc-header-left p  { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+
+    .doc-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .doc-logo span { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+
+    /* Corpo do documento */
+    .doc-body {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      margin-bottom: 20px;
+    }
+
+    .doc-body h2 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 28px 0 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .doc-body h2:first-child { margin-top: 0; }
+
+    .doc-body p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 12px;
+    }
+
+    .doc-body ul {
+      padding-left: 20px;
+      margin-bottom: 12px;
+    }
+
+    .doc-body ul li {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 4px;
+    }
+
+    /* Rodapé com botão de voltar */
+    .doc-footer {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .btn-back {
+      display: inline-flex; align-items: center; gap: 8px;
+      height: 40px; padding: 0 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: 14px; font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+
+    .btn-back:hover { background: var(--bg-page); color: var(--text-primary); }

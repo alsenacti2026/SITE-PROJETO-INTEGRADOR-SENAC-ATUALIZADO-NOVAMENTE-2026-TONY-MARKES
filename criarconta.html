@@ -1,82 +1,99 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cadastro — Minha Área</title>
-  <link rel="stylesheet" href="css/criarconta.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEADI - Criar conta</title>
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="css/criarconta.css">
 </head>
 <body>
 
-<div class="auth-box">
+    <div class="ambient-light"></div>
 
-  <div class="auth-logo">
-    <div class="logo-icon">M</div>
-    <span class="logo-text">Minha Área</span>
-  </div>
+    <main class="main-wrapper">
+        <div class="login-card">
+            <header class="card-header">
+                <img src="img/seadi_1.png" alt="Logo SEADI" class="main-logo">
+                <div class="brand-info">
+                    <p class="tagline">Educação Digital Inteligente</p>
+                    <h1 class="title">Criar conta</h1>
+                </div>
+            </header>
 
-  <h1 class="auth-title">Criar conta</h1>
-  <p class="auth-sub">Preencha os dados abaixo para se cadastrar.</p>
+            <form class="login-form" onsubmit="return false;">
+                <div class="input-group">
+                    <input type="text" id="nome" placeholder="Nome" required>
+                </div>
 
-  <div class="form-group">
-    <label class="form-label" for="nome">Nome</label>
-    <input class="form-input" type="text" id="nome" placeholder="Seu nome">
-  </div>
+                <div class="input-group">
+                    <input type="text" id="sobrenome" placeholder="Sobrenome">
+                </div>
 
-  <div class="form-group">
-    <label class="form-label" for="sobrenome">Sobrenome</label>
-    <input class="form-input" type="text" id="sobrenome" placeholder="Seu sobrenome">
-  </div>
+                <div class="input-group">
+                    <input type="tel" id="telefone" placeholder="Telefone" maxlength="15" oninput="mascaraTel(this)">
+                </div>
 
-  <div class="form-group">
-    <label class="form-label" for="email">E-mail</label>
-    <input class="form-input" type="email" id="email" placeholder="seu@email.com">
-  </div>
+                <div class="input-group">
+                    <input type="date" id="data-nascimento" placeholder="Data de nascimento">
+                </div>
 
-  <div class="form-group">
-    <label class="form-label" for="pw-nova">Senha</label>
-    <input class="form-input" type="password" id="pw-nova" placeholder="Mínimo 8 caracteres" oninput="checkPw()">
+                <div class="input-group">
+                    <input type="email" id="email" placeholder="E-mail de cadastro" required>
+                </div>
 
-    <div class="pw-strength" id="pw-strength" style="display:none;">
-      <div class="pw-strength-label" id="pw-strength-label">Força: —</div>
-      <div class="pw-strength-bar">
-        <div class="pw-bar-seg" id="seg1"></div>
-        <div class="pw-bar-seg" id="seg2"></div>
-        <div class="pw-bar-seg" id="seg3"></div>
-        <div class="pw-bar-seg" id="seg4"></div>
-      </div>
-    </div>
+                <div class="input-group" style="position:relative;">
+                    <input type="password" id="pw-nova" placeholder="Senha (mínimo 8 caracteres)" required oninput="checkPw()" style="padding-right:40px;">
+                    <button type="button" class="pw-toggle" onclick="togglePw('pw-nova')" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1.1rem;">👁</button>
+                </div>
 
-    <div class="pw-rules">
-      <div class="pw-rule" id="rule-len"><div class="pw-rule-dot"></div>Mínimo de 8 caracteres</div>
-      <div class="pw-rule" id="rule-upper"><div class="pw-rule-dot"></div>Uma letra maiúscula</div>
-      <div class="pw-rule" id="rule-num"><div class="pw-rule-dot"></div>Um número</div>
-      <div class="pw-rule" id="rule-special"><div class="pw-rule-dot"></div>Um caractere especial (!@#$...)</div>
-    </div>
-  </div>
+                <div class="pw-strength" id="pw-strength" style="display:none;">
+                    <div class="pw-strength-label" id="pw-strength-label">Força: —</div>
+                    <div class="pw-strength-bar">
+                        <div class="pw-bar-seg" id="seg1"></div>
+                        <div class="pw-bar-seg" id="seg2"></div>
+                        <div class="pw-bar-seg" id="seg3"></div>
+                        <div class="pw-bar-seg" id="seg4"></div>
+                    </div>
+                </div>
 
-  <div class="form-group">
-    <label class="form-label" for="pw-confirm">Confirmar senha</label>
-    <input class="form-input" type="password" id="pw-confirm" placeholder="Repita a senha" oninput="checkConfirm()">
-    <span class="form-hint" id="confirm-hint"></span>
-  </div>
+                <div class="pw-rules">
+                    <div class="pw-rule" id="rule-len"><div class="pw-rule-dot"></div>Mínimo de 8 caracteres</div>
+                    <div class="pw-rule" id="rule-upper"><div class="pw-rule-dot"></div>Uma letra maiúscula</div>
+                    <div class="pw-rule" id="rule-num"><div class="pw-rule-dot"></div>Um número</div>
+                    <div class="pw-rule" id="rule-special"><div class="pw-rule-dot"></div>Um caractere especial (!@#$...)</div>
+                </div>
 
-  <div class="checkbox-group">
-    <input type="checkbox" id="termos">
-    <label for="termos">
-      Li e aceito os <a href="termos.html" target="_blank">Termos de uso</a> e a <a href="privacidade.html" target="_blank">Política de privacidade</a>.
-    </label>
-  </div>
+                <div class="input-group" style="position:relative;">
+                    <input type="password" id="pw-confirm" placeholder="Confirmar senha" required oninput="checkConfirm()" style="padding-right:40px;">
+                    <button type="button" class="pw-toggle" onclick="togglePw('pw-confirm')" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1.1rem;">👁</button>
+                </div>
+                <span class="form-hint" id="confirm-hint" style="margin-top:-10px;"></span>
 
-  <button class="btn-full" onclick="cadastrar()">Criar minha conta</button>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="termos">
+                    <label for="termos">
+                        Li e aceito os <a href="termos.html" target="_blank">Termos de uso</a> e a <a href="privacidade.html" target="_blank">Política de privacidade</a>.
+                    </label>
+                </div>
 
-  <div class="auth-footer">
-    Já tem uma conta? <a href="login.html">Entrar</a>
-  </div>
+                <button type="submit" class="btn-login" onclick="cadastrar()">
+                    <span>CRIAR MINHA CONTA</span>
+                </button>
+            </form>
 
-</div>
+            <div class="card-footer">
+                <div class="divider">
+                    <span>OU</span>
+                </div>
+                <a href="login.html" class="forgot-password">Já tem uma conta? Entrar</a>
+            </div>
+        </div>
+    </main>
 
-<script src="../PI/JS/criarconta.js"></script>
-
+    <script src="JS/shared.js"></script>
+    <script src="JS/api.js"></script>
+    <script src="JS/criarconta.js"></script>
 </body>
 </html>

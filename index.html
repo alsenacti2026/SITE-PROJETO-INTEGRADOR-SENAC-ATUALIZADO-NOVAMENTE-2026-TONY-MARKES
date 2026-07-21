@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SEADI - Elite Learning</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap"
-        rel="stylesheet">
+    <link rel="stylesheet" href="css/fonts.css">
     <link rel="stylesheet" href="css/styleIndex.css">
 </head>
 
@@ -21,18 +20,19 @@
         <div class="perfil-wrapper">
             <div class="profile-trigger" id="btn-menu-perfil">
                 <img src="https://www.w3schools.com/howto/img_avatar.png" id="avatar-pequeno">
-
-                <!--O nome do usuário aparecerá aqui-->
                 <span id="display-nome-curto">Usuário</span>
                 <i class="arrow-icon">▼</i>
             </div>
             
             <div id="idMenuPerfil" class="menu-premium">
-                <hr>
-                <a href="../PI/minha-conta/cadastro.html" class="btn btn-link btn-block btn-logout">Minha Conta</a>
-
-
-                <a href="login.html" class="btn btn-link btn-block btn-logout">Sair da Plataforma</a>
+                <a href="minha-conta/cadastro.html">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                    Minha Conta
+                </a>
+                <a href="#" onclick="logout()" class="btn-logout">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 16l4-4m0 0l-4-4m4 4H7"/><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/></svg>
+                    Sair da Plataforma
+                </a>
             </div>
         </div>
     </header>
@@ -42,28 +42,63 @@
     
     <div class="grid-premium">
         
-        <a href="../PI/modulos/modulosinici.html" class="card-elite">
-            <img src="../PI/img/inici.png" class="thumb-img">
+        <a href="modulos/modulosinici.html" class="card-elite" id="mod-card-1">
+            <img src="img/inici.png" class="thumb-img">
             <h3>Iniciante</h3>
-            
+            <div class="mod-progress-text" style="font-size:0.85rem;color:rgba(255,255,255,0.5);margin-top:8px;"></div>
         </a>
 
-        <a href="../PI/modulos/modulosbasic.html" class="card-elite">
-            <img src="../PI/img/avanç.png" class="thumb-img">
+        <a href="modulos/modulosbasic.html" class="card-elite" id="mod-card-2">
+            <img src="img/avanç.png" class="thumb-img">
             <h3>Básico</h3>
-            
+            <div class="mod-progress-text" style="font-size:0.85rem;color:rgba(255,255,255,0.5);margin-top:8px;"></div>
         </a>
 
-        <a href="../PI/modulos/modulosavanç.html" class="card-elite">
-            <img src="../PI/img/intermed.png" class="thumb-img">
+        <a href="modulos/modulosavanç.html" class="card-elite" id="mod-card-3">
+            <img src="img/intermed.png" class="thumb-img">
             <h3>Avançado</h3>
-            
+            <div class="mod-progress-text" style="font-size:0.85rem;color:rgba(255,255,255,0.5);margin-top:8px;"></div>
         </a>
 
     </div>
 </main>
     <!-- Chamada do arquivo JS -->
-    <script src="js/script.js"></script>
+    <script src="JS/shared.js"></script>
+    <script src="JS/api.js"></script>
+    <script src="JS/aulas.js"></script>
+    <script src="JS/script.js"></script>
+    <script>
+    if (isAuthenticated()) {
+        apiFetch('/progress/status').then(function (status) {
+            var concluidas = {};
+            var i;
+            for (i = 0; i < status.concluidas.length; i++) concluidas[status.concluidas[i]] = true;
+
+            for (var m = 0; m < MODULOS.length; m++) {
+                var mod = MODULOS[m];
+                var card = document.getElementById('mod-card-' + mod.ordem);
+                if (!card) continue;
+
+                var textEl = card.querySelector('.mod-progress-text');
+                var desbloqueado = isModuloDesbloqueado(mod.ordem, concluidas);
+
+                if (!desbloqueado) {
+                    card.classList.add('locked');
+                    card.removeAttribute('href');
+                    if (textEl) textEl.textContent = 'Complete o modulo anterior';
+                } else {
+                    var concluidasMod = 0;
+                    for (i = 0; i < mod.aulas.length; i++) {
+                        if (concluidas[mod.aulas[i].id]) concluidasMod++;
+                    }
+                    var pct = mod.aulas.length > 0 ? Math.round((concluidasMod / mod.aulas.length) * 100) : 0;
+                    if (textEl) textEl.textContent = pct + '% concluido';
+                    if (pct >= 100) card.classList.add('done');
+                }
+            }
+        }).catch(function () {});
+    }
+    </script>
 </body>
 
 </html>

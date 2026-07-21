@@ -1,61 +1,69 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Esqueci minha senha — Minha Área</title>
-  <link rel="stylesheet" href="css/esqueci.css">
- 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEADI - Esqueci minha senha</title>
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="css/esqueci.css">
 </head>
 <body>
 
-<div class="auth-box">
+    <div class="ambient-light"></div>
 
-  <!-- Logo -->
-  <div class="auth-logo">
-    <div class="logo-icon">M</div>
-    <span class="logo-text">Minha Área</span>
-  </div>
+    <main class="main-wrapper">
+        <div class="login-card">
+            <header class="card-header">
+                <img src="img/seadi_1.png" alt="Logo SEADI" class="main-logo">
+                <div class="brand-info">
+                    <p class="tagline">Educação Digital Inteligente</p>
+                    <h1 class="title">Esqueci minha senha</h1>
+                </div>
+            </header>
 
-  <h1 class="auth-title">Esqueci minha senha</h1>
-  <p class="auth-sub">Escolha como deseja receber o link de redefinição.</p>
+            <p class="auth-sub">Escolha como deseja receber o link de redefinição.</p>
 
-  <!-- Abas de seleção -->
-  <div class="tabs">
-    <button class="tab active" onclick="trocarAba('email')">📧 E-mail</button>
-    <button class="tab"        onclick="trocarAba('telefone')">📱 Telefone</button>
-  </div>
+            <div class="tabs">
+                <button class="tab active" onclick="trocarAba('email')">E-mail</button>
+                <button class="tab" onclick="trocarAba('telefone')">Telefone</button>
+            </div>
 
-  <!-- Mensagem de sucesso (compartilhada entre as duas abas) -->
-  <div class="success-box" id="success-box"></div>
+            <div class="success-box" id="success-box"></div>
 
-  <!-- ── Aba: E-mail ── -->
-  <div class="tab-panel active" id="panel-email">
-    <div class="form-group">
-      <label class="form-label" for="email">E-mail cadastrado</label>
-      <input class="form-input" type="email" id="email" placeholder="seu@email.com">
-      <span class="form-hint">Enviaremos um link para redefinir sua senha.</span>
-    </div>
-    <button class="btn-full" onclick="enviar('email')">Enviar link por e-mail</button>
-  </div>
+            <div class="tab-panel active" id="panel-email">
+                <form class="login-form" onsubmit="return false;">
+                    <div class="input-group">
+                        <input type="email" id="email" placeholder="E-mail de cadastro" required>
+                    </div>
+                    <button type="button" class="btn-login" onclick="enviar('email')">
+                        <span>ENVIAR LINK POR E-MAIL</span>
+                    </button>
+                </form>
+            </div>
 
-  <!-- ── Aba: Telefone ── -->
-  <div class="tab-panel" id="panel-telefone">
-    <div class="form-group">
-      <label class="form-label" for="telefone">Número de telefone</label>
-      <input class="form-input" type="tel" id="telefone" placeholder="(00) 00000-0000" maxlength="15" oninput="mascaraTel(this)">
-      <span class="form-hint">Enviaremos um código SMS para seu celular.</span>
-    </div>
-    <button class="btn-full" onclick="enviar('telefone')">Enviar código por SMS</button>
-  </div>
+            <div class="tab-panel" id="panel-telefone">
+                <form class="login-form" onsubmit="return false;">
+                    <div class="input-group">
+                        <input type="tel" id="telefone" placeholder="(00) 00000-0000" maxlength="15" oninput="mascaraTel(this)" required>
+                    </div>
+                    <button type="button" class="btn-login" onclick="enviar('telefone')">
+                        <span>ENVIAR CÓDIGO POR SMS</span>
+                    </button>
+                </form>
+            </div>
 
-  <div class="auth-footer">
-    Lembrou a senha? <a href="login.html">Voltar para o login</a>
-  </div>
+            <div class="card-footer">
+                <div class="divider">
+                    <span>OU</span>
+                </div>
+                <a href="login.html" class="forgot-password">Lembrou a senha? Voltar para o login</a>
+            </div>
+        </div>
+    </main>
 
-</div>
-
-<script src="../PI/JS/esquecisenha.js"></script>
-
+    <script src="JS/shared.js"></script>
+    <script src="JS/api.js"></script>
+    <script src="JS/esquecisenha.js"></script>
 </body>
 </html>

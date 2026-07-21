@@ -1,0 +1,118 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  id              Int                @id @default(autoincrement())
+  nome            String
+  email           String             @unique
+  senha           String
+  telefone        String?
+  dataNascimento  DateTime?
+  fotoUrl         String?
+  ultimoAcesso    DateTime?
+  criadoEm        DateTime           @default(now())
+  atualizadoEm    DateTime           @updatedAt
+
+  progressoModulos  ProgressoModulo[]
+  progressoAulas    ProgressoAula[]
+  tentativasLogin   TentativaLogin[]
+  atividades        Atividade[]
+
+}
+
+model Modulo {
+  id          Int              @id @default(autoincrement())
+  ordem       Int              @unique
+  titulo      String
+  descricao   String?
+  icone       String?
+
+  aulas       Aula[]
+  progresso   ProgressoModulo[]
+}
+
+model Aula {
+  id          Int              @id @default(autoincrement())
+  moduloId    Int
+  ordem       Int
+  titulo      String
+  descricao   String?
+  videoUrl    String?
+  conteudo    String?
+  duracao     Int?
+
+  modulo      Modulo           @relation(fields: [moduloId], references: [id], onDelete: Cascade)
+  progresso   ProgressoAula[]
+}
+
+model ProgressoModulo {
+  id           Int              @id @default(autoincrement())
+  usuarioId    Int
+  moduloId     Int
+  progresso    Float            @default(0)
+  concluido    Boolean          @default(false)
+  iniciadoEm   DateTime         @default(now())
+  concluidoEm  DateTime?
+
+  usuario      Usuario          @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  modulo       Modulo           @relation(fields: [moduloId], references: [id], onDelete: Cascade)
+
+  @@unique([usuarioId, moduloId])
+}
+
+model ProgressoAula {
+  id             Int              @id @default(autoincrement())
+  usuarioId      Int
+  aulaId         Int
+  videoAssistido Boolean          @default(false)
+  progressoVideo Int              @default(0)
+  tempoAssistido Int              @default(0)
+  concluido      Boolean          @default(false)
+  assistidoEm    DateTime?
+  concluidoEm    DateTime?
+
+  usuario        Usuario          @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  aula           Aula             @relation(fields: [aulaId], references: [id], onDelete: Cascade)
+
+  @@unique([usuarioId, aulaId])
+}
+
+model TentativaLogin {
+  id        Int      @id @default(autoincrement())
+  usuarioId Int
+  momento   DateTime @default(now())
+  sucesso   Boolean
+
+  usuario   Usuario  @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+
+  @@index([usuarioId, momento])
+}
+
+model RedefinicaoSenha {
+  id        Int      @id @default(autoincrement())
+  email     String
+  codigo    String
+  expiraEm  DateTime
+  usado     Boolean  @default(false)
+  criadoEm  DateTime @default(now())
+}
+
+model Atividade {
+  id          Int      @id @default(autoincrement())
+  usuarioId   Int
+  tipo        String
+  descricao   String
+  criadoEm    DateTime @default(now())
+
+  usuario     Usuario  @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+
+  @@index([usuarioId, criadoEm])
+}
+
+
